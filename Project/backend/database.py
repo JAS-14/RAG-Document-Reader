@@ -4,7 +4,7 @@ import pymysql
 
 pymysql.install_as_MySQLdb()
 
-DATABASE_URL = "mysql+pymysql://root:Jaspreet1420047@localhost/RAG"
+DATABASE_URL = "mysql+pymysql://root:password@localhost/database_name"
 
 engine = create_engine(DATABASE_URL)
 
