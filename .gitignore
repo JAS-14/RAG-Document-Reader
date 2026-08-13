@@ -1,0 +1,16 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Uploaded/generated files
+Project/backend/uploads/
+Project/backend/chunk_store.json
+
+# Frontend dependencies and build files
+node_modules/
+build/

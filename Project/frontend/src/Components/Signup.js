@@ -1,20 +1,23 @@
 import React,{useState} from "react";
 import 'bootstrap/dist/css/bootstrap.css'
 import {NavLink,useNavigate} from 'react-router-dom'
-import axios from "axios"
+import api from "../api"
+import './style.css'
 function Signup(){
     const navigate = useNavigate()
+    const [signup,setSignup] = useState(false)
     const [input,setInput] = useState({
         username:'',
         email:'',
         password:'',
     })
     const handleSubmit = async (e) => {
+        setSignup(true)
         e.preventDefault();
     
         try {
-            await axios.post(
-                "http://localhost:8000/auth/create-user",
+            await api.post(
+                "/auth/create-user",
                 {
                     name: input.username,
                     email: input.email,
@@ -23,10 +26,12 @@ function Signup(){
             );
     
             navigate("/");
+            setSignup(false)
     
         } catch (err) {
             console.log(err);
-            alert("Signup failed");
+            console.error("Signup failed");
+            setSignup(false)
         }
     };
     const handleChange= (e)=>{
@@ -35,6 +40,7 @@ function Signup(){
     }
     return(
         <div>
+            {!signup &&
             <div className="container rounded" style={{backgroundColor:'rgba(255,255,255,0.2)',width:'500px',padding:'30px',color:'white',marginTop:'100px'}}>
                <form onSubmit={handleSubmit}>
                 <h1 className="display-4 fw-bold">Create Account</h1>
@@ -45,6 +51,17 @@ function Signup(){
                 <input type="submit" className="btn btn-primary btn-lg d-flex w-100 mt-4" value="Signup"/>
                 <p className="small text-center mt-3 fw-bold">Already has account?<NavLink to="/">Signin</NavLink></p>
             </form></div>
+}
+{signup &&
+
+<p className="text-primary d-flex align-items-center">
+<span className="thinking-dots thinking-dots loading-overlay thinking-dots-lg">
+  <span></span>
+  <span></span>
+  <span></span>
+</span>
+</p>
+}
         </div>
     )
 }

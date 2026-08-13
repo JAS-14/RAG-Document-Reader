@@ -9,6 +9,11 @@ from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt , JWTError
 from starlette import status
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 router = APIRouter(
     prefix='/auth',
@@ -31,7 +36,7 @@ class Token(BaseModel):
     access_token : str
     token_type:str
 
-SECRET_KEY = '197b2c37c391bed93fe80344fe73b806947a65e36206e05a1a23c2fa12702fe3'
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = 'HS256'
 
 bcrypt_context = CryptContext(schemes=['bcrypt'],deprecated='auto')

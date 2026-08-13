@@ -1,10 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 import pymysql
+from dotenv import load_dotenv
+load_dotenv()
+import os
 
+DATABASE_URL = os.getenv("DATABASE_URL")
 pymysql.install_as_MySQLdb()
-
-DATABASE_URL = "mysql+pymysql://root:password@localhost/database_name"
 
 engine = create_engine(DATABASE_URL)
 
